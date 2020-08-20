@@ -13,7 +13,7 @@ LDFLAGS = `$(LLVMCONFIG) --ldflags` -lpthread -ldl -lz -lncurses -rdynamic
 LIBS = `$(LLVMCONFIG) --libs`
 
 clean:
-	$(RM) -rf parser.cpp parser.hpp lexer.cpp parser.tab.* $(OBJS)
+	$(RM) -rf parser.cpp parser.hpp lexer.cpp parser.tab.* $(OBJS) *.out
 
 parser.cpp: parser.y
 	bison -d -o $@ $^
@@ -31,5 +31,5 @@ c19: $(OBJS)
 	$(CXX) -o $@ $(OBJS) $(LIBS) $(LDFLAGS)
 
 test: c19 example.c19
-	./c19 -i example.c19 -o example -b
-	./example
+	./c19 -i example.c19 -o example.out -b
+	./example.out
